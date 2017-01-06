@@ -35,6 +35,18 @@ class HashTable(object):
     def set(self, key, value):
         """Insert or update the given key with its associated value"""
         # TODO: Insert or update the given key-value entry into a bucket
+        index = hash(key)
+        key_value = [key, value]
+        if self.buckets[index] is None:
+            self.buckets[index] = LinkedList(key_value)
+            return True
+        else:
+            for pair in self.buckets[index]:
+                if pair[0] == key:
+                    pair[0] = value
+                    return True
+            self.buckets[index].append(key_value)
+            return True
         pass
 
     def delete(self, key):
